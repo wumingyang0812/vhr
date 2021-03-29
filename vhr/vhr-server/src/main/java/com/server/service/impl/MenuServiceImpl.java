@@ -2,17 +2,18 @@ package com.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.server.mapper.HrRoleMapper;
 import com.server.mapper.MenuMapper;
 import com.server.mapper.MenuRoleMapper;
 import com.server.mapper.RoleMapper;
-import com.server.pojo.Menu;
-import com.server.pojo.MenuRole;
-import com.server.pojo.Role;
+import com.server.pojo.*;
 import com.server.service.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,4 +53,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         }
         return menus;
     }
+
+
+    /**
+     * 通过用户id获取该用户所有的菜单
+     * @return
+     */
+    @Override
+    public List<Menu> getMenusByHrId() {
+        return menuMapper.getMenusByHrId(((Hr)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+    }
+
+
+
+
+
+
+
+
 }
