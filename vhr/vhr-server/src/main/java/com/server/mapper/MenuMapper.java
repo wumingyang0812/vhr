@@ -16,6 +16,10 @@ import java.util.List;
  */
 public interface MenuMapper extends BaseMapper<Menu> {
 
-//    @Select("select m.*,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnameZh from menu m,menu_role mr,role r where m.`id`=mr.`mid` and mr.`rid`=r.`id` order by m.`id`")
-//    List<Menu> getAllMenusWithRole();
+    /**
+     * 根据用户id查询菜单列表
+     * @param id
+     * @return
+     */
+    List<Menu> getMenusByHrId(Integer id);
 }

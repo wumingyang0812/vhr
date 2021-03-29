@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -33,6 +34,10 @@ public class Role implements Serializable {
     @ApiModelProperty(value = "角色名称")
     @TableField("nameZh")
     private String namezh;
+
+    @TableField(exist = false)
+    // @TableField(exist = false)注解用于是否为数据库表字段，默认为 true。
+    List<Menu> menus;
 
 
 }

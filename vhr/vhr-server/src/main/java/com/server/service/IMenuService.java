@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author mingyang
@@ -16,4 +16,10 @@ import java.util.List;
 public interface IMenuService extends IService<Menu> {
 
     List<Menu> getAllMenusWithRole();
+
+    /**
+     * 根据用户id查询菜单列表
+     * @return
+     */
+    List<Menu> getMenusByHrId();
 }

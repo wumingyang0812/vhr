@@ -14,6 +14,6 @@
 // }
 module.exports = {
   devServer: {
-      proxy: 'http://localhost:8081'
+    proxy: 'http://localhost:8081'
   }
 }
