@@ -37,6 +37,24 @@ export const postRequest = (url, params) => {
         data: params
     })
 }
+// 删除请求
+export const deleteRequest = (url, params) => {
+    return axios({
+        method: 'delete',
+        url: url,
+        params: params
+    })
+}
+
+//修改请求
+export const putRequest = (url, params) => {
+    return axios({
+        method: 'put',
+        url: url,
+        data: params
+    })
+}
+
 // get请求
 export const getRequest = (url, params) => {
     return axios({

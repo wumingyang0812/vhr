@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -42,5 +44,11 @@ public class Department implements Serializable {
     @TableField("isParent")
     private Boolean isparent;
 
+    @ApiModelProperty(value="子部门列表")
+    @TableField(exist = false)
+    private List<Department> children;
 
+    @ApiModelProperty(value = "返回结果")
+    @TableField(exist = false)
+    private Integer result;
 }
