@@ -4,17 +4,32 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.server.pojo.Department">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="parentId" property="parentid" />
-        <result column="depPath" property="deppath" />
-        <result column="enabled" property="enabled" />
-        <result column="isParent" property="isparent" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parentId" property="parentid"/>
+        <result column="depPath" property="deppath"/>
+        <result column="enabled" property="enabled"/>
+        <result column="isParent" property="isparent"/>
+    </resultMap>
+
+    <resultMap id="DepartmentWithChildren" type="com.server.pojo.Department" extends="BaseResultMap">
+        <collection property="children" ofType="com.server.pojo.Department"
+                    select="com.server.mapper.DepartmentMapper.getAllDepartments" column="id">
+
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, parentId, depPath, enabled, isParent
+        id
+        , name, parentId, depPath, enabled, isParent
     </sql>
+    <!--  获取所有部门  -->
+    <select id="getAllDepartments" resultMap="DepartmentWithChildren">
+        select
+        <include refid="Base_Column_List"/>
+        from department
+        where parentId = #{parentId}
+    </select>
 
 </mapper>

@@ -65,7 +65,9 @@
     <!--  获取所有员工（分页）  -->
     <select id="getEmployeeByPage" resultMap="EmplooyInfo">
         SELECT
-        e.*,
+        e.id,e.name,e.workid,e.gender,e.birthday,e.idcard,e.wedlock,e.nativeplace,
+        e.address,e.phone,e.email,e.engageform,e.tiptopdegree,e.specialty,e.school,
+        e.begindate,e.conversiontime,e.begincontract,e.endcontract,e.workstate,
         n.id AS nid,
         n.`name` AS nname,
         p.id AS pid,
@@ -74,8 +76,8 @@
         d.`name` AS dname,
         j.id AS jid,
         j.`name` AS jname,
-        pos.id AS psid,
-        pos.`name` AS psname
+        pos.id AS posid,
+        pos.`name` AS posname
         FROM
         employee e,
         nation n,

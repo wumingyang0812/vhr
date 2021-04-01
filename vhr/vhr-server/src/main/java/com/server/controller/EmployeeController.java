@@ -1,17 +1,14 @@
 package com.server.controller;
 
 
-import com.server.pojo.Employee;
-import com.server.pojo.RespPageBean;
-import com.server.service.IEmployeeService;
+import com.server.pojo.*;
+import com.server.service.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -27,6 +24,16 @@ public class EmployeeController {
 
     @Autowired
     private IEmployeeService employeeService;
+    @Autowired
+    private IPoliticsstatusService politicsstatusService;
+    @Autowired
+    private IJoblevelService joblevelService;
+    @Autowired
+    private INationService nationService;
+    @Autowired
+    private IPositionService positionService;
+    @Autowired
+    private IDepartmentService departmentService;
 
 
     @ApiOperation(value = "查询所有员工（分页）")
@@ -36,5 +43,69 @@ public class EmployeeController {
             @RequestParam(defaultValue = "10") Integer size,
             Employee employee, LocalDate[] beginDateScope) {
         return employeeService.getEmployeeByPage(currentPage, size, employee, beginDateScope);
+    }
+
+    @ApiOperation(value="获取所有整治面貌")
+    @GetMapping("/politicsstatus")
+    public List<Politicsstatus> getAllPoliticsstatus(){
+        return politicsstatusService.list();
+    }
+
+    @ApiOperation(value="获取所有职称")
+    @GetMapping("/joblevels")
+    public List<Joblevel> getAllJoblevels(){
+        return joblevelService.list();
+    }
+
+    @ApiOperation(value="获取所有民族")
+    @GetMapping("/nations")
+    public List<Nation> getAllNations(){
+        return nationService.list();
+    }
+
+    @ApiOperation(value="获取所有职位")
+    @GetMapping("/positions")
+    public List<Position> getAllPositions(){
+        return positionService.list();
+    }
+
+    @ApiOperation(value = "获取所有部门")
+    @GetMapping("/deps")
+    public List<Department> getAllDepartments(){
+        return departmentService.getAllDepartments();
+    }
+
+    @ApiOperation(value = "获取工号")
+    @GetMapping("/maxWorkID")
+    public RespBean maxWorkID(){
+        return employeeService.maxWorkID();
+    }
+
+    @ApiOperation(value = "添加员工")
+    @PostMapping("/")
+    public RespBean addEmp( Employee employee){
+        boolean save = employeeService.save(employee);
+        if (save){
+            return RespBean.ok("添加成功！");
+        }
+        return RespBean.error("添加失败！");
+    }
+
+    @ApiOperation(value = "更新员工")
+    @PutMapping("/")
+    public RespBean updateEmp( Employee employee){
+        if(employeeService.updateById(employee)){
+            return RespBean.ok("更新成功！");
+        }
+        return RespBean.error("更新失败！");
+    }
+
+    @ApiOperation(value = "删除员工")
+    @DeleteMapping("/{id}")
+    public RespBean deleteEmpByid(@PathVariable Integer id){
+        if(employeeService.removeById(id)){
+            return RespBean.ok("删除成功！");
+        }
+        return RespBean.error("删除失败");
     }
 }

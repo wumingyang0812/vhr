@@ -4,7 +4,9 @@
       <div>
         <h1 class="home-title">人事管理系统</h1>
       </div>
-      <el-button type="warning" plain @click="logout">退出</el-button>
+      <el-button type="warning" size="mini" plain @click="logout"
+        >退出</el-button
+      >
     </el-header>
     <el-container>
       <el-aside :width="isCollapse ? '64px' : '200px'">

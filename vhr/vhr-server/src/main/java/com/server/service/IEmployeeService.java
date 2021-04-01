@@ -2,6 +2,7 @@ package com.server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.server.pojo.Employee;
+import com.server.pojo.RespBean;
 import com.server.pojo.RespPageBean;
 
 import java.time.LocalDate;
@@ -24,4 +25,10 @@ public interface IEmployeeService extends IService<Employee> {
      * @return
      */
     RespPageBean getEmployeeByPage(Integer currentPage, Integer size, Employee employee, LocalDate[] beginDateScope);
+
+    /**
+     * 获取工号
+     * @return
+     */
+    RespBean maxWorkID();
 }

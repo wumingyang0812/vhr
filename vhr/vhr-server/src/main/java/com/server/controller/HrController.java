@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-03-19
  */
 @RestController
-@RequestMapping("/system")
+@RequestMapping("/")
 public class HrController {
 
-    @GetMapping("/init")
-    public String test(){
-        return "test";
-    }
+
 }

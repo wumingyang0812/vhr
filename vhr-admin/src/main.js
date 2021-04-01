@@ -9,12 +9,14 @@ import './assets/css/global.css'
 import qs from 'qs'
 // 导入vuex
 import store from './store'
-import { postRequest, getRequest } from './utils/api'
+import { postRequest, getRequest, deleteRequest, putRequest } from './utils/api'
 // 导入初始化导航菜单工具
 import { initMenu } from './utils/menus'
 
 Vue.prototype.postRequest = postRequest
 Vue.prototype.getRequest = getRequest
+Vue.prototype.deleteRequest = deleteRequest
+Vue.prototype.putRequest = putRequest
 Vue.prototype.$qs = qs
 Vue.config.productionTip = false
 // 路由导航卫士
