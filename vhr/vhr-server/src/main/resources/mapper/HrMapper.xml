@@ -4,21 +4,51 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.server.pojo.Hr">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="phone" property="phone" />
-        <result column="telephone" property="telephone" />
-        <result column="address" property="address" />
-        <result column="enabled" property="enabled" />
-        <result column="username" property="username" />
-        <result column="password" property="password" />
-        <result column="userface" property="userface" />
-        <result column="remark" property="remark" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="telephone" property="telephone"/>
+        <result column="address" property="address"/>
+        <result column="enabled" property="enabled"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="userface" property="userface"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <resultMap id="HrWithRole" type="com.server.pojo.Hr" extends="BaseResultMap">
+        <collection property="roles" ofType="com.server.pojo.Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="rnameZh" property="namezh"/>
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, phone, telephone, address, enabled, username, password, userface, remark
+        id
+        , name, phone, telephone, address, enabled, username, password, userface, remark
     </sql>
+    <!--  获取所有操作员  -->
+    <select id="getAllHrs" resultMap="HrWithRole">
+        SELECT
+        hr.*,
+        r.id AS rid,
+        r.`name` AS rname,
+        r.nameZh AS rnameZh
+        FROM
+        hr hr,
+        hr_role hrr,
+        role r
+        WHERE
+        hr.id = hrr.hrid
+        AND r.id = hrr.rid
+        AND hr.id != #{id}
+        <if test="keywords!=null and keywords!=''">
+            AND hr.`name` LIKE CONCAT('%', #{keywords}, '%')
+        </if>
+        ORDER BY
+        hr.id
+    </select>
 
 </mapper>

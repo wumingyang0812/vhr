@@ -2,6 +2,7 @@ package com.server.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.server.pojo.HrRole;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>

@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Welcome from '../components/Welcome.vue'
 import EmpBasic from '../views/emp/EmpBasic.vue'
+import SysHr from '../views/sys/SysHr.vue'
 
 Vue.use(VueRouter)
 
@@ -23,7 +24,8 @@ const routes = [
     component: Home,
     redirect: '/welcome',
     children: [{ path: '/welcome', component: Welcome },
-    { path: '/emp/basic', component: EmpBasic }]
+    { path: '/emp/basic', component: EmpBasic },
+    { path: '/sys/hr', component: SysHr }]
   }
 ]
 

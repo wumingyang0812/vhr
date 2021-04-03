@@ -3,6 +3,7 @@ package com.server.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.server.pojo.Hr;
 import com.server.pojo.Role;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -20,4 +21,5 @@ public interface HrMapper extends BaseMapper<Hr> {
     @Select("select * from role r, hr_role hrr where r.id=hrr.rid and hrr.hrid=#{id}")
     List<Role> getHrRoles(Integer id);
 
+    List<Hr> getAllHrs(@Param("id") Integer id, @Param("keywords") String keywords);
 }

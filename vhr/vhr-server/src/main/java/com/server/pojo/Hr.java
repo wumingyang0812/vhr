@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,7 +49,9 @@ public class Hr implements UserDetails {
 
     @ApiModelProperty(value = "联系地址")
     private String address;
-    // 当前账户是否可用
+
+    @ApiModelProperty(value = "是否可用")
+    @Getter(AccessLevel.NONE)
     private Boolean enabled;
 
     @ApiModelProperty(value = "用户名")
@@ -60,8 +64,8 @@ public class Hr implements UserDetails {
 
     private String remark;
 
+    @ApiModelProperty(value = "角色")
     @TableField(exist = false)
-    // @TableField(exist = false)注解用于是否为数据库表字段，默认为 true。
     private List<Role> roles;
 
     // 获取当前用户所具有的角色信息

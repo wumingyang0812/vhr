@@ -8,6 +8,7 @@ import com.server.mapper.MenuRoleMapper;
 import com.server.mapper.RoleMapper;
 import com.server.pojo.*;
 import com.server.service.IMenuService;
+import com.server.utils.HrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -61,7 +62,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
      */
     @Override
     public List<Menu> getMenusByHrId() {
-        return menuMapper.getMenusByHrId(((Hr)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+        return menuMapper.getMenusByHrId(HrUtils.getCurrentHr().getId());
     }
 
 
