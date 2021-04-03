@@ -183,8 +183,15 @@
         ></el-table-column>
         <el-table-column fixed="right" width="150" label="操作" align="center">
           <template slot-scope="scope">
-          <el-button @click="showEditEmpView(scope.row)" type="primary" size="mini">编辑</el-button>
-          <el-button @click="deleteEmp(scope.row)" type="danger" size="mini">删除</el-button>
+            <el-button
+              @click="showEditEmpView(scope.row)"
+              type="primary"
+              size="mini"
+              >编辑</el-button
+            >
+            <el-button @click="deleteEmp(scope.row)" type="danger" size="mini"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -309,230 +316,229 @@
             </el-form-item>
           </el-col>
         </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-form-item label="职位:" prop="posid">
-                <el-select
-                  v-model="empForm.posid"
-                  placeholder="职位"
-                  size="mini"
-                  style="width: 150px"
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="职位:" prop="posid">
+              <el-select
+                v-model="empForm.posid"
+                placeholder="职位"
+                size="mini"
+                style="width: 150px"
+              >
+                <el-option
+                  v-for="item in positions"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
                 >
-                  <el-option
-                    v-for="item in positions"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                  >
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="5">
-              <el-form-item label="职称:" prop="joblevelid">
-                <el-select
-                  v-model="empForm.joblevelid"
-                  placeholder="职称"
-                  size="mini"
-                  style="width: 150px"
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item label="职称:" prop="joblevelid">
+              <el-select
+                v-model="empForm.joblevelid"
+                placeholder="职称"
+                size="mini"
+                style="width: 150px"
+              >
+                <el-option
+                  v-for="item in joblevels"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
                 >
-                  <el-option
-                    v-for="item in joblevels"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                  >
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="所属部门:" prop="departmentid">
-                <el-popover
-                  placement="right"
-                  title="请选择部门"
-                  width="200"
-                  trigger="hover"
-                  v-model="popVisible"
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="所属部门:" prop="departmentid">
+              <el-popover
+                placement="right"
+                title="请选择部门"
+                width="200"
+                trigger="hover"
+                v-model="popVisible"
+              >
+                <el-tree
+                  default-expand-all
+                  :data="deps"
+                  :props="defaultProps"
+                  :expand-on-click-node="false"
+                  @node-click="handleNodeClick"
+                ></el-tree>
+                <div
+                  slot="reference"
+                  style="
+                    width: 150px;
+                    display: inline-flex;
+                    font-size: 13px;
+                    border: 1px solid #dedede;
+                    height: 26px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    align-items: center;
+                    padding-left: 8px;
+                    box-sizing: border-box;
+                  "
+                  @click="showDepView"
                 >
-                  <el-tree
-                    default-expand-all
-                    :data="deps"
-                    :props="defaultProps"
-                    :expand-on-click-node="false"
-                    @node-click="handleNodeClick"
-                  ></el-tree>
-                  <div
-                    slot="reference"
-                    style="
-                      width: 150px;
-                      display: inline-flex;
-                      font-size: 13px;
-                      border: 1px solid #dedede;
-                      height: 26px;
-                      border-radius: 5px;
-                      cursor: pointer;
-                      align-items: center;
-                      padding-left: 8px;
-                      box-sizing: border-box;
-                    "
-                    @click="showDepView"
-                  >
-                    {{ inputDepName }}
-                  </div>
-                </el-popover>
-              </el-form-item>
-            </el-col>
-            <el-col :span="7">
-              <el-form-item label="电话号码:" prop="phone">
-                <el-input
-                  size="mini"
-                  style="width: 200px"
-                  prefix-icon="el-icon-phone"
-                  v-model="empForm.phone"
-                  placeholder="电话号码"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-form-item label="工号:" prop="workid">
-                <el-input
-                  size="mini"
-                  style="width: 150px"
-                  prefix-icon="el-icon-edit"
-                  v-model="maxWorkID"
-                  placeholder="工号"
-                  disabled
-                ></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="5">
-              <el-form-item label="学历:" prop="tiptopdegree">
-                <el-select
-                  v-model="empForm.tiptopdegree"
-                  placeholder="学历"
-                  size="mini"
-                  style="width: 150px"
+                  {{ inputDepName }}
+                </div>
+              </el-popover>
+            </el-form-item>
+          </el-col>
+          <el-col :span="7">
+            <el-form-item label="电话号码:" prop="phone">
+              <el-input
+                size="mini"
+                style="width: 200px"
+                prefix-icon="el-icon-phone"
+                v-model="empForm.phone"
+                placeholder="电话号码"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="工号:" prop="workid">
+              <el-input
+                size="mini"
+                style="width: 150px"
+                prefix-icon="el-icon-edit"
+                v-model="maxWorkID"
+                placeholder="工号"
+                disabled
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item label="学历:" prop="tiptopdegree">
+              <el-select
+                v-model="empForm.tiptopdegree"
+                placeholder="学历"
+                size="mini"
+                style="width: 150px"
+              >
+                <el-option
+                  v-for="item in tiptopDegrees"
+                  :key="item"
+                  :label="item"
+                  :value="item"
                 >
-                  <el-option
-                    v-for="item in tiptopDegrees"
-                    :key="item"
-                    :label="item"
-                    :value="item"
-                  >
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="毕业院校:" prop="school">
-                <el-input
-                  size="mini"
-                  style="width: 150px"
-                  prefix-icon="el-icon-edit"
-                  v-model="empForm.school"
-                  placeholder="毕业院校名称"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="7">
-              <el-form-item label="专业名称:" prop="specialty">
-                <el-input
-                  size="mini"
-                  style="width: 200px"
-                  prefix-icon="el-icon-edit"
-                  v-model="empForm.specialty"
-                  placeholder="请输入专业名称"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-form-item label="入职日期:" prop="begindate">
-                <el-date-picker
-                  v-model="empForm.begindate"
-                  size="mini"
-                  type="date"
-                  value-format="yyyy-MM-dd"
-                  style="width: 130px"
-                  placeholder="入职日期"
-                >
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="转正日期:" prop="conversiontime">
-                <el-date-picker
-                  v-model="empForm.conversiontime"
-                  size="mini"
-                  type="date"
-                  value-format="yyyy-MM-dd"
-                  style="width: 130px"
-                  placeholder="转正日期"
-                >
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="合同起始日期:" prop="begincontract">
-                <el-date-picker
-                  v-model="empForm.begincontract"
-                  size="mini"
-                  type="date"
-                  value-format="yyyy-MM-dd"
-                  style="width: 130px"
-                  placeholder="合同起始日期"
-                >
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="合同终止日期:" prop="endcontract">
-                <el-date-picker
-                  v-model="empForm.endcontract"
-                  size="mini"
-                  type="date"
-                  value-format="yyyy-MM-dd"
-                  style="width: 150px"
-                  placeholder="合同终止日期"
-                >
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item label="身份证号码:" prop="idcard">
-                <el-input
-                  size="mini"
-                  style="width: 180px"
-                  prefix-icon="el-icon-edit"
-                  v-model="empForm.idcard"
-                  placeholder="请输入身份证号码"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="聘用形式:" prop="engageform">
-                <el-radio-group v-model="empForm.engageform">
-                  <el-radio label="劳动合同">劳动合同</el-radio>
-                  <el-radio label="劳务合同">劳务合同</el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="婚姻状况:" prop="wedlock">
-                <el-radio-group v-model="empForm.wedlock">
-                  <el-radio label="已婚">已婚</el-radio>
-                  <el-radio label="未婚">未婚</el-radio>
-                  <el-radio label="离异">离异</el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="毕业院校:" prop="school">
+              <el-input
+                size="mini"
+                style="width: 150px"
+                prefix-icon="el-icon-edit"
+                v-model="empForm.school"
+                placeholder="毕业院校名称"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="7">
+            <el-form-item label="专业名称:" prop="specialty">
+              <el-input
+                size="mini"
+                style="width: 200px"
+                prefix-icon="el-icon-edit"
+                v-model="empForm.specialty"
+                placeholder="请输入专业名称"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="入职日期:" prop="begindate">
+              <el-date-picker
+                v-model="empForm.begindate"
+                size="mini"
+                type="date"
+                value-format="yyyy-MM-dd"
+                style="width: 130px"
+                placeholder="入职日期"
+              >
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="转正日期:" prop="conversiontime">
+              <el-date-picker
+                v-model="empForm.conversiontime"
+                size="mini"
+                type="date"
+                value-format="yyyy-MM-dd"
+                style="width: 130px"
+                placeholder="转正日期"
+              >
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="合同起始日期:" prop="begincontract">
+              <el-date-picker
+                v-model="empForm.begincontract"
+                size="mini"
+                type="date"
+                value-format="yyyy-MM-dd"
+                style="width: 130px"
+                placeholder="合同起始日期"
+              >
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="合同终止日期:" prop="endcontract">
+              <el-date-picker
+                v-model="empForm.endcontract"
+                size="mini"
+                type="date"
+                value-format="yyyy-MM-dd"
+                style="width: 150px"
+                placeholder="合同终止日期"
+              >
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="身份证号码:" prop="idcard">
+              <el-input
+                size="mini"
+                style="width: 180px"
+                prefix-icon="el-icon-edit"
+                v-model="empForm.idcard"
+                placeholder="请输入身份证号码"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="聘用形式:" prop="engageform">
+              <el-radio-group v-model="empForm.engageform">
+                <el-radio label="劳动合同">劳动合同</el-radio>
+                <el-radio label="劳务合同">劳务合同</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="婚姻状况:" prop="wedlock">
+              <el-radio-group v-model="empForm.wedlock">
+                <el-radio label="已婚">已婚</el-radio>
+                <el-radio label="未婚">未婚</el-radio>
+                <el-radio label="离异">离异</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <!-- 底部区域 -->

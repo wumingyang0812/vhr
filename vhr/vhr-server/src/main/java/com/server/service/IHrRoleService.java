@@ -12,5 +12,11 @@ import com.server.pojo.HrRole;
  * @since 2021-03-19
  */
 public interface IHrRoleService extends IService<HrRole> {
-
+    /**
+     * 添加操作员的新权限数据
+     * @param hrid
+     * @param rids
+     * @return
+     */
+    boolean addHrRoles(Integer hrid, Integer[] rids);
 }

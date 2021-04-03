@@ -4,14 +4,15 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.server.pojo.HrRole">
-        <id column="id" property="id" />
-        <result column="hrid" property="hrid" />
-        <result column="rid" property="rid" />
+        <id column="id" property="id"/>
+        <result column="hrid" property="hrid"/>
+        <result column="rid" property="rid"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, hrid, rid
+        id
+        , hrid, rid
     </sql>
 
 </mapper>

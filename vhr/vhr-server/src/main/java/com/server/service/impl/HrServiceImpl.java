@@ -10,6 +10,7 @@ import com.server.pojo.Hr;
 import com.server.pojo.HrRole;
 import com.server.pojo.Role;
 import com.server.service.IHrService;
+import com.server.utils.HrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -46,4 +47,15 @@ public class HrServiceImpl extends ServiceImpl<HrMapper, Hr> implements IHrServi
         System.out.println("HR: "+hr);
         return hr;
     }
+    /**
+     * 获取所有操作员
+     * @param keywords
+     * @return
+     */
+    @Override
+    public List<Hr> getAllHrs(String keywords) {
+        return hrMapper.getAllHrs(HrUtils.getCurrentHr().getId(),keywords);
+    }
+
+
 }
