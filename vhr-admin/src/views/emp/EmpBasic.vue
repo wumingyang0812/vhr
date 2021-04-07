@@ -15,12 +15,12 @@
             placeholder="请输入员工姓名关键字"
             v-model="empname"
             clearable
-            @clear="getEmployeeList()"
+            @clear="getEmployeeList"
           >
             <el-button
               slot="append"
               icon="el-icon-search"
-              @click="getEmployeeList()"
+              @click="getEmployeeList"
             ></el-button>
           </el-input>
         </el-col>
@@ -28,7 +28,7 @@
           <el-button type="primary">高级查询</el-button>
         </el-col>
         <el-col :span="2" :offset="12">
-          <el-button type="primary" @click="addEmp()">添加员工</el-button>
+          <el-button type="primary" @click="addEmp">添加员工</el-button>
         </el-col>
       </el-row>
       <!-- 用户列表数据 -->
@@ -544,7 +544,7 @@
       <!-- 底部区域 -->
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="doAddEmp()">确 定</el-button>
+        <el-button type="primary" @click="doAddEmp">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -707,7 +707,7 @@ export default {
       }
     };
   },
-  created() {
+  mounted() {
     this.getEmployeeList();
   },
   methods: {

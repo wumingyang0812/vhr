@@ -30,6 +30,19 @@
             <result column="enabled2" property="enabled"/>
         </collection>
     </resultMap>
+    <!--  查询所有菜单  -->
+    <resultMap id="MenusWithChildren" type="com.server.pojo.Menu" extends="BaseResultMap">
+        <id column="id1" property="id"/>
+        <result column="name1" property="name"/>
+        <collection property="children" ofType="com.server.pojo.Menu">
+            <id column="id2" property="id"/>
+            <result column="name2" property="name"/>
+            <collection property="children" ofType="com.server.pojo.Menu">
+                <id column="id3" property="id"/>
+                <result column="name3" property="name"/>
+            </collection>
+        </collection>
+    </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -38,29 +51,41 @@
     </sql>
 
     <select id="getMenusByHrId" resultMap="Menus">
-        SELECT DISTINCT
-            m1.*,
-            m2.id AS id2,
-            m2.url AS url2,
-            m2.path AS path2,
-            m2.component AS component2,
-            m2.NAME AS name2,
-            m2.iconCls AS iconCls2,
-            m2.keepAlive AS keepAlive2,
-            m2.requireAuth AS requireAuth2,
-            m2.parentId AS parentId2,
-            m2.enabled AS enabled2
-        FROM
-            menu m1,
-            menu m2,
-            hr_role hrr,
-            menu_role mr
-        WHERE
-            m1.id = m2.parentId
+        SELECT DISTINCT m1.*,
+                        m2.id          AS id2,
+                        m2.url         AS url2,
+                        m2.path        AS path2,
+                        m2.component   AS component2,
+                        m2.NAME        AS name2,
+                        m2.iconCls     AS iconCls2,
+                        m2.keepAlive   AS keepAlive2,
+                        m2.requireAuth AS requireAuth2,
+                        m2.parentId    AS parentId2,
+                        m2.enabled     AS enabled2
+        FROM menu m1,
+             menu m2,
+             hr_role hrr,
+             menu_role mr
+        WHERE m1.id = m2.parentId
           AND m2.id = mr.mid
           AND mr.rid = hrr.rid
           AND hrr.hrid = #{id}
           AND m2.enabled = TRUE
     </select>
+    <select id="getAllMenus" resultMap="MenusWithChildren">
+        SELECT m1.id     AS id1,
+               m1.`name` AS name1,
+               m2.id     AS id2,
+               m2.`name` AS name2,
+               m3.id     AS id3,
+               m3.`name` AS name3
+        FROM menu m1,
+             menu m2,
+             menu m3
+        WHERE m1.id = m2.parentId
+          AND m2.id = m3.parentId
+          AND m3.enabled = TRUE
+    </select>
+
 
 </mapper>

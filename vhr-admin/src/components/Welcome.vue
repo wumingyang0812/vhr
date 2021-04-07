@@ -1,12 +1,15 @@
 <template>
   <div>
-    <h2>Welcome!</h2>
+    <div class="homeWelcome">欢迎来到微人事！</div>
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
-<style>
+<style scoped>
+.homeWelcome {
+  text-align: center;
+  font-size: 50px;
+  font-family: 华文行楷;
+  color: #409eff;
+  padding-top: 180px;
+}
 </style>

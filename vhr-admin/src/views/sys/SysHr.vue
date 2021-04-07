@@ -13,6 +13,8 @@
         prefix-icon="el-icon-search"
         style="width: 400px; margin-right: 10px"
         @keydown.enter.native="doSearch"
+        clearable
+        @clear="doSearch"
       ></el-input>
       <el-button icon="el-icon-search" type="primary" @click="doSearch"
         >搜索</el-button

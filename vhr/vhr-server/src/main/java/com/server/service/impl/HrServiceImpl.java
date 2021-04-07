@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,8 +32,13 @@ import java.util.List;
 @Service
 public class HrServiceImpl extends ServiceImpl<HrMapper, Hr> implements IHrService,UserDetailsService {
 
-    @Resource
+    @Autowired
     HrMapper hrMapper;
+
+    @Autowired
+    IHrService hrService;
+
+
 
 
     @Override
@@ -55,6 +61,24 @@ public class HrServiceImpl extends ServiceImpl<HrMapper, Hr> implements IHrServi
     @Override
     public List<Hr> getAllHrs(String keywords) {
         return hrMapper.getAllHrs(HrUtils.getCurrentHr().getId(),keywords);
+    }
+
+    @Override
+    public boolean updatePassword(String oldpass, String pass, Integer id) {
+        Hr hr = hrService.getById(id);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        if (bCryptPasswordEncoder.matches(oldpass,hr.getPassword())){
+            String encode = bCryptPasswordEncoder.encode(pass);
+            Hr hr1 = new Hr();
+            hr1.setId(id);
+            hr1.setPassword(encode);
+            hr1.setEnabled(true);
+
+            if(hrService.updateById(hr1)){
+                return true;
+            }
+        }
+        return false;
     }
 
 
