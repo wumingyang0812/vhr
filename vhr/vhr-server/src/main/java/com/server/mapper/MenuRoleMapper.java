@@ -2,6 +2,7 @@ package com.server.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.server.pojo.MenuRole;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -19,4 +20,12 @@ public interface MenuRoleMapper extends BaseMapper<MenuRole> {
     // 通过用户角色id查询所有的menu
     @Select("select mid from menu_role where rid=#{rid}")
     List<Integer> getAllMenusByRid(Integer rid);
+
+    /**
+     * 更新角色菜单
+     * @param rid
+     * @param mids
+     * @return
+     */
+    Integer insertRecord(@Param("rid") Integer rid, @Param("mids") Integer[] mids);
 }

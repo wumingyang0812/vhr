@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.server.pojo.Hr;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -21,5 +22,12 @@ public interface IHrService extends IService<Hr> {
      */
     List<Hr> getAllHrs(String keywords);
 
-
+    /**
+     * 更新密码
+     * @param oldpass
+     * @param pass
+     * @param id
+     * @return
+     */
+    boolean updatePassword(String oldpass, String pass, Integer id);
 }

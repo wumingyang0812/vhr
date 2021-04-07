@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author mingyang
@@ -39,14 +39,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Override
     public List<Menu> getAllMenusWithRole() {
         List<Menu> menus = menuMapper.selectList(null);
-        for (Menu menu:menus){
+        for (Menu menu : menus) {
             List<MenuRole> mids = menuRoleMapper.selectList(new QueryWrapper<MenuRole>().eq("mid", menu.getId()));
-            if (mids.size()==0){
+            if (mids.size() == 0) {
                 menu.setRoles(null);
                 continue;
             }
             List<Integer> rids = new ArrayList<>();
-            for (MenuRole menuRole:mids) {
+            for (MenuRole menuRole : mids) {
                 rids.add(menuRole.getRid());
             }
             List<Role> roles = roleMapper.selectBatchIds(rids);
@@ -58,6 +58,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     /**
      * 通过用户id获取该用户所有的菜单
+     *
      * @return
      */
     @Override
@@ -65,11 +66,16 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         return menuMapper.getMenusByHrId(HrUtils.getCurrentHr().getId());
     }
 
+    /**
+     * 查询所有菜单
+     *
+     * @return
+     */
+    @Override
+    public List<Menu> getAllMenus() {
 
-
-
-
-
+        return menuMapper.getAllMenus();
+    }
 
 
 }
